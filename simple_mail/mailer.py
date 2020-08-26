@@ -11,6 +11,7 @@ class BaseSimpleMail(object):
 
     email_key = None
     template = None
+    subject = ''
     context = {}
 
     def __init__(self, *args, **kwargs):
@@ -72,6 +73,7 @@ class SimpleMailer(object):
         created_mails = []
         for key, value in self._registry.items():
             obj, created = SimpleMail.objects.get_or_create(key=key)
+            obj.subject = value.subject
             if created:
                 created_mails.append(value)
         return created_mails
